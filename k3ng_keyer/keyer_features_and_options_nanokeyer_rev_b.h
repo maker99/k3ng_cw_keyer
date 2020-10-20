@@ -1,7 +1,8 @@
 // compile time features and options - comment or uncomment to add or delete features
 // FEATURES add more bytes to the compiled binary, OPTIONS change code behavior
 
-#define FEATURE_COMMAND_BUTTONS
+#define FEATURE_BUTTONS
+#define FEATURE_COMMAND_MODE
 //#define FEATURE_COMMAND_LINE_INTERFACE        // (this no longer requires FEATURE_SERIAL)
 #define FEATURE_MEMORIES
 //#define FEATURE_MEMORY_MACROS
@@ -11,6 +12,7 @@
 //#define FEATURE_TRAINING_COMMAND_LINE_INTERFACE
 #define FEATURE_POTENTIOMETER         // do not enable unless you have a potentiometer connected, otherwise noise will falsely trigger wpm changes
 //#define FEATURE_SIDETONE_SWITCH   // adds switch control for the sidetone output. requires an external toggle switch (assigned to an arduino pin - see keyer_pin_settings.h). 
+//#define FEATURE_SIDETONE_NEWTONE      // Use the NewTone library, ~1k smaller code size than the standard tone library. Uses timer1 (pins 9 or 10)  https://bitbucket.org/teckel12/arduino-new-tone/wiki/Home
 //#define FEATURE_SERIAL_HELP
 //#define FEATURE_HELL
 //#define FEATURE_PS2_KEYBOARD        // Change keyboard layout (non-US in K3NG_PS2Keyboard.h).  Additional options below.
@@ -22,7 +24,8 @@
 //#define FEATURE_LCD_4BIT                // classic LCD disidefplay using 4 I/O lines
 //#define FEATURE_LCD_ADAFRUIT_I2C          // Adafruit I2C LCD display using MCP23017 at addr 0x20
 //#define FEATURE_LCD_YDv1                // YourDuino I2C LCD display with old LCM 1602 V1 ic
-//#define FEATURE_CW_DECODER
+//#define FEATURE_LCD_I2C_FDEBRABANDER //https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
+// #define FEATURE_CW_DECODER              // https://github.com/k3ng/k3ng_cw_keyer/wiki/385-Feature:-CW-Decoder 
 //#define FEATURE_SLEEP                   // go to sleep after x minutes to conserve battery power (not compatible with Arduino DUE, may have mixed results with Mega and Mega ADK)
 //#define FEATURE_ROTARY_ENCODER          // rotary encoder speed control
 //#define FEATURE_CMOS_SUPER_KEYER_IAMBIC_B_TIMING
@@ -44,6 +47,8 @@
 //#define FEATURE_SEQUENCER
 //#define FEATURE_SD_CARD_SUPPORT
 //#define FEATURE_COMMAND_MODE_ENHANCED_CMD_ACKNOWLEDGEMENT
+// #define FEATURE_WEB_SERVER      // Details: https://github.com/k3ng/k3ng_cw_keyer/wiki/390-Feature:-Ethernet,-Web-Server,-and-Internet-Linking
+// #define FEATURE_INTERNET_LINK   // Details: https://github.com/k3ng/k3ng_cw_keyer/wiki/390-Feature:-Ethernet,-Web-Server,-and-Internet-Linking
 
 //#define OPTION_SUPPRESS_SERIAL_BOOT_MSG
 #define OPTION_INCLUDE_PTT_TAIL_FOR_MANUAL_SENDING
@@ -100,3 +105,6 @@
 // #define OPTION_PERSONALIZED_STARTUP_SCREEN        // displays a user defined string of characters on the second or fourth row of the screen during startup. 1602 display requires OPTION_DO_NOT_SAY_HI
 // #define OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION        // reverses the up/down direction when using the paddles to change the wpm or sidetone frequency
 // #define OPTION_DISPLAY_MEMORY_CONTENTS_COMMAND_MODE
+
+//Added in version 2020.07.04.01
+//#define OPTION_WINKEY_PROSIGN_COMPATIBILITY  // Additional character mappings to support K1EL Winkey emulation prosigns

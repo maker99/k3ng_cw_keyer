@@ -5,7 +5,8 @@
 // compile time features and options - comment or uncomment to add or delete features
 // FEATURES add more bytes to the compiled binary, OPTIONS change code behavior
 
-#define FEATURE_COMMAND_BUTTONS
+#define FEATURE_BUTTONS
+#define FEATURE_COMMAND_MODE
 #define FEATURE_COMMAND_LINE_INTERFACE        // (this no longer requires FEATURE_SERIAL)
 #define FEATURE_MEMORIES
 //#define FEATURE_MEMORY_MACROS
@@ -15,6 +16,7 @@
 //#define FEATURE_TRAINING_COMMAND_LINE_INTERFACE
 #define FEATURE_POTENTIOMETER         // do not enable unless you have a potentiometer connected, otherwise noise will falsely trigger wpm changes
 //#define FEATURE_SIDETONE_SWITCH   // adds switch control for the sidetone output. requires an external toggle switch (assigned to an arduino pin - see keyer_pin_settings.h).
+//#define FEATURE_SIDETONE_NEWTONE      // Use the NewTone library, ~1k smaller code size than the standard tone library. Uses timer1 (pins 9 or 10)  https://bitbucket.org/teckel12/arduino-new-tone/wiki/Home
 //#define FEATURE_SERIAL_HELP
 //#define FEATURE_HELL
 #define FEATURE_PS2_KEYBOARD        // Use a PS2 keyboard to send code - Change keyboard layout (non-US) in K3NG_PS2Keyboard.h.  Additional options below.
@@ -49,6 +51,7 @@
 //#define FEATURE_SEQUENCER
 //#define FEATURE_SD_CARD_SUPPORT
 // #define FEATURE_COMMAND_MODE_ENHANCED_CMD_ACKNOWLEDGEMENT
+
 
 //#define FEATURE_COMMAND_LINE_INTERFACE_ON_SECONDARY_PORT     // Activate the Command Line interface on the secondary serial port
 #define OPTION_PRIMARY_SERIAL_PORT_DEFAULT_WINKEY_EMULATION  // Use when activating both FEATURE_WINKEY_EMULATION and FEATURE_COMMAND_LINE_INTERFACE 
@@ -116,3 +119,5 @@
 // #define OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION        // reverses the up/down direction when using the paddles to change the wpm or sidetone frequency
 // #define OPTION_DISPLAY_MEMORY_CONTENTS_COMMAND_MODE
 
+//Added in version 2020.07.04.01
+//#define OPTION_WINKEY_PROSIGN_COMPATIBILITY  // Additional character mappings to support K1EL Winkey emulation prosigns

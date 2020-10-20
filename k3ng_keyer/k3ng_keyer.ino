@@ -317,7 +317,7 @@ Recent Update History
       FEATURE_STRAIGHT_KEY  {documented on web page 2015-09-05}
 
     2.2.2015090501
-      Memories can now be programmed in commmand mode (FEATURE_COMMAND_BUTTONS) by pressing the memory button
+      Memories can now be programmed in commmand mode (FEATURE_BUTTONS) by pressing the memory button
       FEATURE_CW_DECODER now has digital input pin (cw_decoder_pin) and if OPTION_CW_DECODER_GOERTZEL_AUDIO_DETECTOR is enable, cw_decoder_audio_input_pin will work in parallel
 
     2.2.2015090801
@@ -334,7 +334,7 @@ Recent Update History
 
     2.2.2015091302
       FEATURE_COMPETITION_COMPRESSION_DETECTION - Experimental 
-      Fixed compiler error when only FEATURE_COMMAND_BUTTONS was enabled
+      Fixed compiler error when only FEATURE_BUTTONS was enabled
 
     2.2.2015091801
       OPTION_DIT_DAH_BUFFERS_OFF_BY_DEFAULT_FOR_FEATURE_DIT_DAH_BUFFER_CONTROL
@@ -761,7 +761,7 @@ Recent Update History
       Fixed command line interface bug with /> and /< commands and carriage returns
 
     2017.06.28.01
-      Fixed bug with \T command when FEATURE_COMMAND_BUTTONS is not activated. (Thanks, Павел Бирюков)
+      Fixed bug with \T command when FEATURE_BUTTONS is not activated. (Thanks, Павел Бирюков)
 
     2017.06.28.02
       Keyer now reports rotary encoder speed changes in K1EL Winkey emulation (Thanks, Marc-Andre, VE2EVN)
@@ -839,7 +839,7 @@ Recent Update History
       Fixed minor bug with junk left in paddle echo buffer after exiting command mode
 
     2018.03.04.02
-      Added OPTION_DFROBOT_LCD_COMMAND_BUTTONS to use this board https://www.dfrobot.com/wiki/index.php/Arduino_LCD_KeyPad_Shield_(SKU:_DFR0009) with FEATURE_COMMAND_BUTTONS
+      Added OPTION_DFROBOT_LCD_COMMAND_BUTTONS to use this board https://www.dfrobot.com/wiki/index.php/Arduino_LCD_KeyPad_Shield_(SKU:_DFR0009) with FEATURE_BUTTONS
 
     2018.03.08.01
       Additional OPTION_DFROBOT_LCD_COMMAND_BUTTONS code and corresponding DEBUG_BUTTONS code
@@ -1081,7 +1081,7 @@ Recent Update History
       Fixed bug with OPTION_SAVE_MEMORY_NANOKEYER and reading left (dit) paddle
 
     2019.08.18.01
-      Fixed logic issue with WINKEY_CANCEL_BUFFERED_SPEED_COMMAND that may arise in Logger32
+      Fixed logic issue with W INKEY_CANCEL_BUFFERED_SPEED_COMMAND that may arise in Logger32
 
     2019.08.18.02
       Fixed issue with OPTION_BLINK_HI_ON_PTT (Thanks, Bob, WO6W)  
@@ -1261,6 +1261,54 @@ Recent Update History
     2020.06.14.01
       Added [ character as prosign AS for K1EL Winkeyer / N1MM+ compatibility (Thanks, Mark WH7W)
 
+    2020.07.01.01
+      Pull request 98 - Support for configuring the side tone line states - merged.  (https://github.com/k3ng/k3ng_cw_keyer/pull/98) (Thanks, Costin Stroie)
+      New settings: sidetone_line_active_state, sidetone_line_inactive_state   
+
+    2020.07.04.01
+      Added OPTION_WINKEY_PROSIGN_COMPATIBILITY for additional character mappings to support K1EL Winkey emulation prosigns 
+
+    2020.07.07.01
+      Merge of pull request 99 - Add support for using the NewTone library (https://github.com/k3ng/k3ng_cw_keyer/pull/99) (Thanks, Costin Stroie)
+        Added support for configuring the sidetone line states HIGH and LOW.
+        Use the NewTone instead of the standard tone library (~1k smaller code).
+        Included the NewTone library by Tim Eckel <teckel@leethost.com>
+      Added FEATURE_WEB_SERVER and FEATURE_INTERNET_LINK to all features and options files  
+
+    2020.07.17.01
+      Merge of pull request 100 - Command buttons 1-3 are not working with ARDUINO_GENERIC_STM32F103C (https://github.com/k3ng/k3ng_cw_keyer/pull/100) (Thanks, 7m4mon)  
+  
+    2020.07.26.01
+      Extended CLI commands now work with linefeed line terminations in addition to carriage return; Issue 101 (https://github.com/k3ng/k3ng_cw_keyer/issues/101), (Thanks, devcpu)
+
+    2020.08.17.01
+      FEATURE_WINKEY_EMULATION - fixed bug that adversly affected operation with Logger32
+
+    2020.08.21.01
+      FEATURE_COMMAND_BUTTONS is now called FEATURE_BUTTONS
+      Command mode is now broken out into its own feature, FEATURE_COMMAND_MODE
+
+    2020.08.22.01
+      Minor tweak in check_buttons()  
+
+    2020.08.23.01
+      Added FEATURE_LCD_I2C_FDEBRABANDER
+      Added settings
+        lcd_i2c_address_mathertel_PCF8574 0x27             // I2C address of display for FEATURE_LCD_MATHERTEL_PCF8574
+        lcd_i2c_address_fdebrander_lcd 0x27                // I2C address of display for FEATURE_LCD_I2C_FDEBRABANDER
+        lcd_i2c_address_ydv1_lcd 0x27                      // I2C address of display for FEATURE_LCD_YDv1
+        lcd_i2c_address_sainsmart_lcd 0x27                 // I2C address of display for FEATURE_LCD_SAINSMART_I2C  
+
+    2020.08.24.01
+      In pin settings files clarified the function of pins for FEATURE_CW_DECODER & OPTION_CW_DECODER_GOERTZEL_AUDIO_DETECTOR   
+      Updated CW Decoder Wiki Page https://github.com/k3ng/k3ng_cw_keyer/wiki/385-Feature:-CW-Decoder   
+
+    2020.08.28.02
+      Merged pull request 103 Change personalized startup operation ( https://github.com/k3ng/k3ng_cw_keyer/pull/103 )  (Thanks, VK2EFL) 
+
+    2020.08.29.01
+      Implemented fix for memories not halting after a paddle press ( https://groups.io/g/radioartisan/message/13500 ) (Thanks, Gary, AF8A, for code )    
+
   Documentation: https://github.com/k3ng/k3ng_cw_keyer/wiki
 
   Support: https://groups.io/g/radioartisan  ( Please do not email K3NG directly for support.  Thanks )
@@ -1288,7 +1336,7 @@ If you offer a hardware kit using this software, show your appreciation by sendi
 
 */
 
-#define CODE_VERSION "2020.06.14.01"
+#define CODE_VERSION "2020.08.29.01"
 #define eeprom_magic_number 40               // you can change this number to have the unit re-initialize EEPROM
 
 #include <stdio.h>
@@ -1438,9 +1486,15 @@ If you offer a hardware kit using this software, show your appreciation by sendi
   #include "keyer_settings.h"
 #endif
 
-#if defined(FEATURE_COMMAND_BUTTONS)
+#if defined(FEATURE_BUTTONS)
   #include "src/buttonarray/buttonarray.h"
 #endif
+
+#if defined(FEATURE_SIDETONE_NEWTONE) && !defined(OPTION_SIDETONE_DIGITAL_OUTPUT_NO_SQUARE_WAVE)
+  #include <NewTone.h>
+  #define tone   NewTone
+  #define noTone noNewTone
+#endif //FEATURE_SIDETONE_NEWTONE
 
 #if defined(FEATURE_SLEEP)
   #include <avr/sleep.h>  // It should be different library for ARM sp5iou
@@ -1474,7 +1528,7 @@ If you offer a hardware kit using this software, show your appreciation by sendi
 
 #if defined(FEATURE_LCD_SAINSMART_I2C)
   #include <LiquidCrystal_I2C.h>
-#endif //FEATURE_SAINSMART_I2C_LCD  
+#endif
 
 #if defined(FEATURE_LCD_FABO_PCF8574)
   #include <FaBoLCD_PCF8574.h>
@@ -1482,6 +1536,10 @@ If you offer a hardware kit using this software, show your appreciation by sendi
 
 #if defined(FEATURE_LCD_MATHERTEL_PCF8574)
   #include <LiquidCrystal_PCF8574.h>
+#endif
+
+#if defined(FEATURE_LCD_I2C_FDEBRABANDER)
+  #include <LiquidCrystal_I2C.h>
 #endif
 
 #if defined(FEATURE_LCD_HD44780)
@@ -1622,7 +1680,7 @@ byte config_dirty = 0;
 unsigned long ptt_time = 0; 
 byte ptt_line_activated = 0;
 byte speed_mode = SPEED_NORMAL;
-#if defined(FEATURE_COMMAND_LINE_INTERFACE) || defined(FEATURE_PS2_KEYBOARD) || defined(FEATURE_MEMORY_MACROS) || defined(FEATURE_MEMORIES) || defined(FEATURE_COMMAND_BUTTONS)
+#if defined(FEATURE_COMMAND_LINE_INTERFACE) || defined(FEATURE_PS2_KEYBOARD) || defined(FEATURE_MEMORY_MACROS) || defined(FEATURE_MEMORIES) || defined(FEATURE_COMMAND_MODE)
   unsigned int serial_number = 1;
 #endif
 byte pause_sending_buffer = 0;
@@ -1684,11 +1742,11 @@ uint16_t memory_area_end = 0;
   long dah_end_time;
 #endif //DEBUG_VARIABLE_DUMP
 
-#ifdef FEATURE_COMMAND_BUTTONS
+#ifdef FEATURE_BUTTONS
   int button_array_high_limit[analog_buttons_number_of_buttons];
   int button_array_low_limit[analog_buttons_number_of_buttons];
   long button_last_add_to_send_buffer_time = 0;
-#endif //FEATURE_COMMAND_BUTTONS
+#endif //FEATURE_BUTTONS
 
 byte pot_wpm_low_value;
 
@@ -1822,13 +1880,13 @@ byte send_buffer_status = SERIAL_SEND_BUFFER_NORMAL;
   byte dah_counter = 0;
 #endif //FEATURE_DEAD_OP_WATCHDOG
 
-#ifdef FEATURE_COMMAND_BUTTONS
+#ifdef FEATURE_BUTTONS
   #ifdef OPTION_REVERSE_BUTTON_ORDER
     ButtonArray button_array(analog_buttons_pin, analog_buttons_number_of_buttons, true);
   #else
     ButtonArray button_array(analog_buttons_pin, analog_buttons_number_of_buttons, false);
   #endif
-#endif //FEATURE_COMMAND_BUTTONS
+#endif //FEATURE_BUTTONS
 
 #ifdef FEATURE_ROTARY_ENCODER            // Rotary Encoder State Tables
   #ifdef OPTION_ENCODER_HALF_STEP_MODE      // Use the half-step state table (emits a code at 00 and 11)
@@ -1896,12 +1954,12 @@ byte send_buffer_status = SERIAL_SEND_BUFFER_NORMAL;
   // #define D6_pin        6
   // #define D7_pin        7
   // LiquidCrystal_I2C lcd(I2C_ADDR,En_pin,Rw_pin,Rs_pin,D4_pin,D5_pin,D6_pin,D7_pin, BACKLIGHT_PIN, POSITIVE);  
-  LiquidCrystal_I2C lcd(0x27,20,4);
+  LiquidCrystal_I2C lcd(lcd_i2c_address_sainsmart_lcd,LCD_COLUMNS,LCD_ROWS);
 #endif //FEATURE_SAINSMART_I2C_LCD    
 
 #if defined(FEATURE_LCD_YDv1)
   //LiquidCrystal_I2C lcd(0x38);
-  LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // for FEATURE_LCD_YDv1; set the LCD I2C address needed for LCM1602 IC V1
+  LiquidCrystal_I2C lcd(lcd_i2c_address_ydv1_lcd, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // for FEATURE_LCD_YDv1; set the LCD I2C address needed for LCM1602 IC V1
 #endif
 
 #if defined(FEATURE_LCD_FABO_PCF8574)
@@ -1910,6 +1968,10 @@ byte send_buffer_status = SERIAL_SEND_BUFFER_NORMAL;
 
 #if defined(FEATURE_LCD_MATHERTEL_PCF8574)
   LiquidCrystal_PCF8574 lcd(lcd_i2c_address_mathertel_PCF8574);
+#endif
+
+#if defined(FEATURE_LCD_I2C_FDEBRABANDER)
+  LiquidCrystal_I2C lcd(lcd_i2c_address_fdebrander_lcd, LCD_COLUMNS, LCD_ROWS, /*charsize*/ LCD_5x8DOTS);
 #endif
 
 #if defined(FEATURE_LCD_HD44780)
@@ -2230,9 +2292,9 @@ void loop()
   #endif
 
   if (keyer_machine_mode == KEYER_NORMAL) {
-    #ifdef FEATURE_COMMAND_BUTTONS
-      check_command_buttons();
-    #endif //FEATURE_COMMAND_BUTTONS
+    #ifdef FEATURE_BUTTONS
+      check_buttons();
+    #endif
     check_paddles();
     service_dit_dah_buffers();
 
@@ -2240,58 +2302,58 @@ void loop()
       check_serial();
       check_paddles();           
       service_dit_dah_buffers();
-    #endif //FEATURE_SERIAL
+    #endif
 
     service_send_buffer(PRINTCHAR);
     check_ptt_tail();
 
     #ifdef FEATURE_POTENTIOMETER
       check_potentiometer();
-    #endif //FEATURE_POTENTIOMETER
+    #endif
     
     #ifdef FEATURE_ROTARY_ENCODER
       check_rotary_encoder();
-    #endif //FEATURE_ROTARY_ENCODER
+    #endif
 
     #ifdef FEATURE_PS2_KEYBOARD
       check_ps2_keyboard();
-    #endif //FEATURE_PS2_KEYBOARD
+    #endif
     
     #if defined(FEATURE_USB_KEYBOARD) || defined(FEATURE_USB_MOUSE)
       service_usb();
-    #endif //FEATURE_USB_KEYBOARD || FEATURE_USB_MOUSE   
+    #endif  
 
     check_for_dirty_configuration();
 
     #ifdef FEATURE_DEAD_OP_WATCHDOG
       check_for_dead_op();
-    #endif //FEATURE_DEAD_OP_WATCHDOG
+    #endif
 
     #ifdef FEATURE_MEMORIES
       check_memory_repeat();
-    #endif //FEATURE_MEMORIES
+    #endif
 
     #ifdef FEATURE_DISPLAY
       check_paddles();
       service_send_buffer(PRINTCHAR);
       service_display();
-    #endif //FEATURE_DISPLAY
+    #endif
     
     #ifdef FEATURE_CW_DECODER
       service_cw_decoder();
-    #endif //FEATURE_CW_DECODER
+    #endif
     
     #ifdef FEATURE_LED_RING
       update_led_ring();
-    #endif //FEATURE_LED_RING
+    #endif 
       
     #ifdef FEATURE_SLEEP
       check_sleep();
-    #endif //FEATURE_SLEEP
+    #endif
 
     #ifdef FEATURE_PTT_INTERLOCK
       service_ptt_interlock();
-    #endif //FEATURE_PTT_INTERLOCK
+    #endif
     
     #ifdef FEATURE_PADDLE_ECHO
       service_paddle_echo();
@@ -2299,15 +2361,15 @@ void loop()
 
     #ifdef FEATURE_STRAIGHT_KEY
       service_straight_key();
-    #endif //FEATURE_STRAIGHT_KEY
+    #endif
 
     #if defined(FEATURE_COMPETITION_COMPRESSION_DETECTION)
       service_competition_compression_detection();
-    #endif //FEATURE_COMPETITION_COMPRESSION_DETECTION
+    #endif
 
     #if defined(OPTION_WINKEY_SEND_BREAKIN_STATUS_BYTE) && defined(FEATURE_WINKEY_EMULATION)
       service_winkey_breakin();
-    #endif //defined(OPTION_WINKEY_SEND_BREAKIN_STATUS_BYTE) && defined(FEATURE_WINKEY_EMULATION)    
+    #endif  
 
     #if defined(FEATURE_ETHERNET)
       check_for_network_restart();
@@ -2323,7 +2385,7 @@ void loop()
 
     #ifdef FEATURE_SIDETONE_SWITCH
       check_sidetone_switch();
-    #endif //FEATURE_SIDETONE_SWITCH
+    #endif
 
     #if defined(FEATURE_4x4_KEYPAD) || defined(FEATURE_3x4_KEYPAD)
       service_keypad();
@@ -2553,9 +2615,11 @@ void service_keypad(){
       case 'B':
         beep_boop();
         break;
-      case 'C':
-        command_mode();
-        break;
+      #ifdef FEATURE_COMMAND_MODE
+        case 'C':
+            command_mode();
+          break;
+      #endif
       case 'D':
         beep_boop();
         break;
@@ -6556,7 +6620,7 @@ void tx_and_sidetone_key (int state)
           tone(sidetone_line, configuration.hz_sidetone);
         #else
           if (sidetone_line) {
-            digitalWrite(sidetone_line, HIGH);
+            digitalWrite(sidetone_line, sidetone_line_active_state);
           }
         #endif
       }
@@ -6577,7 +6641,7 @@ void tx_and_sidetone_key (int state)
             noTone(sidetone_line);
           #else
             if (sidetone_line) {
-              digitalWrite(sidetone_line, LOW);
+              digitalWrite(sidetone_line, sidetone_line_inactive_state);
             }
           #endif
         }
@@ -6606,7 +6670,7 @@ void tx_and_sidetone_key (int state)
           tone(sidetone_line, configuration.hz_sidetone);
         #else
           if (sidetone_line) {
-            digitalWrite(sidetone_line, HIGH);
+            digitalWrite(sidetone_line, sidetone_line_active_state);
           }
         #endif          
       }
@@ -6629,7 +6693,7 @@ void tx_and_sidetone_key (int state)
             noTone(sidetone_line);
           #else
             if (sidetone_line) {
-              digitalWrite(sidetone_line, LOW);
+              digitalWrite(sidetone_line, sidetone_line_inactive_state);
             }
           #endif
         }
@@ -6756,7 +6820,8 @@ void loop_element_lengths(float lengths, float additional_time_ms, int speed_wpm
             }
           }            
         #else ////FEATURE_CMOS_SUPER_KEYER_IAMBIC_B_TIMING
-          if (configuration.cmos_super_keyer_iambic_b_timing_on){
+          //if (configuration.cmos_super_keyer_iambic_b_timing_on){
+          if ((configuration.cmos_super_keyer_iambic_b_timing_on) && (sending_mode == MANUAL_SENDING)) {  
             if ((float(float(micros()-start)/float(ticks))*100) >= configuration.cmos_super_keyer_iambic_b_timing_percent) {
             //if ((float(float(millis()-starttime)/float(starttime-ticks))*100) >= configuration.cmos_super_keyer_iambic_b_timing_percent) {
              if (being_sent == SENDING_DIT) {
@@ -6802,12 +6867,12 @@ void loop_element_lengths(float lengths, float additional_time_ms, int speed_wpm
 
       }
       
-      #if defined(FEATURE_MEMORIES) && defined(FEATURE_COMMAND_BUTTONS)
+      #if defined(FEATURE_MEMORIES) && defined(FEATURE_BUTTONS)
         check_the_memory_buttons();
       #endif
 
       // blow out prematurely if we're automatic sending and a paddle gets hit
-      #ifdef FEATURE_COMMAND_BUTTONS
+      #ifdef FEATURE_BUTTONS
         if (sending_mode == AUTOMATIC_SENDING && (paddle_pin_read(paddle_left) == LOW || paddle_pin_read(paddle_right) == LOW || analogbuttonread(0) || dit_buffer || dah_buffer)) {
           if (keyer_machine_mode == KEYER_NORMAL) {
             sending_mode = AUTOMATIC_SENDING_INTERRUPTED;
@@ -7003,7 +7068,7 @@ long get_cw_input_from_user(unsigned int exit_time_milliseconds) {
       return 0;
     }
 
-    #ifdef FEATURE_COMMAND_BUTTONS
+    #ifdef FEATURE_BUTTONS
       while (analogbuttonread(0)) {    // hit the button to get out of command mode if no paddle was hit
         looping = 0;
         button_hit = 1;
@@ -7034,21 +7099,22 @@ long get_cw_input_from_user(unsigned int exit_time_milliseconds) {
 }
 
 //-------------------------------------------------------------------------------------------------------
-#ifdef FEATURE_COMMAND_BUTTONS
-void send_chars(char* buffer){
+#ifdef FEATURE_COMMAND_MODE
 
-  int x = 0;
+  void send_chars(char* buffer){
 
-  while(buffer[x] != 0){
-    send_char(buffer[x++],0);
+    int x = 0;
+
+    while(buffer[x] != 0){
+      send_char(buffer[x++],0);
+    }
   }
-}
 
 #endif
 
 //-------------------------------------------------------------------------------------------------------
 
-#ifdef FEATURE_COMMAND_BUTTONS
+#ifdef FEATURE_COMMAND_MODE
 void command_mode() {
 
   keyer_machine_mode = KEYER_COMMAND_MODE;
@@ -7099,11 +7165,6 @@ void command_mode() {
 
   while (stay_in_command_mode) {
     cw_char = 0;
-
-    // #ifdef OPTION_WATCHDOG_TIMER
-    //   wdt_reset();
-    // #endif  //OPTION_WATCHDOG_TIMER
-
     looping = 1;
     while (looping) {
       int8_t button_temp = button_array.Pressed();
@@ -7329,7 +7390,6 @@ void command_mode() {
                   lcd_center_print_timed("Buffers On", 0, default_display_msg_delay);
                 }                 
               #endif
-              //send_char('N',KEYER_NORMAL); 
               #if defined(FEATURE_COMMAND_MODE_ENHANCED_CMD_ACKNOWLEDGEMENT) 
                 send_chars((char*)command_k_dit_dah_buffers_on);  
               #else
@@ -7347,9 +7407,7 @@ void command_mode() {
                 } else {
                   lcd_center_print_timed("Buffers Off", 0, default_display_msg_delay);
                 }                                  
-              #endif 
-              //send_char('F',KEYER_NORMAL);
-              //send_char('F',KEYER_NORMAL);  
+              #endif  
               #if defined(FEATURE_COMMAND_MODE_ENHANCED_CMD_ACKNOWLEDGEMENT) 
                 send_chars((char*)command_k_dit_dah_buffers_off);  
               #else
@@ -7365,9 +7423,6 @@ void command_mode() {
             #else               
               boop();
             #endif                     
-            // send_char('E',KEYER_NORMAL);
-            // send_char('R',KEYER_NORMAL);
-            // send_char('R',KEYER_NORMAL);
           }
           break;
           #endif //OPTION_NO_ULTIMATIC
@@ -7776,8 +7831,8 @@ void command_mode() {
           break;
 
         case 9: // button was hit
-                Serial.print("Button - ");
-                Serial.println(button_that_was_pressed);
+                // Serial.print("Button - ");
+                // Serial.println(button_that_was_pressed);
 
           #if defined(FEATURE_MEMORIES)
             if (button_that_was_pressed == 0){  // button 0 was hit - exit
@@ -7831,7 +7886,7 @@ void command_mode() {
   #endif //OPTION_WATCHDOG_TIMER
 
 }
-#endif //FEATURE_COMMAND_BUTTONS
+#endif //FEATURE_COMMAND_MODE
 
 //-------------------------------------------------------------------------------------------------------
 
@@ -7858,7 +7913,7 @@ void command_display_memory(byte memory_number) {
 
 //-------------------------------------------------------------------------------------------------------
 
-#if defined(FEATURE_COMMAND_MODE_PROGRESSIVE_5_CHAR_ECHO_PRACTICE) && defined(FEATURE_COMMAND_BUTTONS)
+#if defined(FEATURE_COMMAND_MODE_PROGRESSIVE_5_CHAR_ECHO_PRACTICE) && defined(FEATURE_COMMAND_MODE)
 void command_progressive_5_char_echo_practice() {
 
   byte loop1 = 1;
@@ -8113,11 +8168,11 @@ void command_progressive_5_char_echo_practice() {
   configuration.keyer_mode = keyer_mode_before;
   paddle_echo_buffer = 0;
 }
-#endif //defined(FEATURE_COMMAND_MODE_PROGRESSIVE_5_CHAR_ECHO_PRACTICE) && defined(FEATURE_COMMAND_BUTTONS)
+#endif //defined(FEATURE_COMMAND_MODE_PROGRESSIVE_5_CHAR_ECHO_PRACTICE) && defined(FEATURE_COMMAND_MODE)
 	
 //-------------------------------------------------------------------------------------------------------
 
-#if defined(FEATURE_COMMAND_BUTTONS)
+#if defined(FEATURE_COMMAND_MODE)
 void command_set_serial_number() {
   
   byte character_count = 0;;
@@ -8203,7 +8258,7 @@ void adjust_dah_to_dit_ratio(int adjustment) {
 
 //-------------------------------------------------------------------------------------------------------
 
-#ifdef FEATURE_COMMAND_BUTTONS
+#ifdef FEATURE_COMMAND_MODE
 void command_dah_to_dit_ratio_adjust() {
 
   byte looping = 1;
@@ -8239,11 +8294,11 @@ void command_dah_to_dit_ratio_adjust() {
   dit_buffer = 0;
   dah_buffer = 0;
 }
-#endif //FEATURE_COMMAND_BUTTONS
+#endif //FEATURE_COMMAND_MODE
 
 //-------------------------------------------------------------------------------------------------------
 
-#ifdef FEATURE_COMMAND_BUTTONS
+#ifdef FEATURE_COMMAND_MODE
 void command_weighting_adjust() {
 
   byte looping = 1;
@@ -8280,11 +8335,11 @@ void command_weighting_adjust() {
   dit_buffer = 0;
   dah_buffer = 0;
 }
-#endif //FEATURE_COMMAND_BUTTONS
+#endif //FEATURE_COMMAND_MODE
 
 //-------------------------------------------------------------------------------------------------------
 
-#ifdef FEATURE_COMMAND_BUTTONS
+#ifdef FEATURE_COMMAND_MODE
 void command_tuning_mode() {
 
   byte looping = 1;
@@ -8359,28 +8414,9 @@ void command_tuning_mode() {
   dit_buffer = 0;
   dah_buffer = 0;
 }
-#endif //FEATURE_COMMAND_BUTTONS
+#endif //FEATURE_COMMAND_MODE
 	
 //-------------------------------------------------------------------------------------------------------
-
-// #if defined(FEATURE_SINEWAVE_SIDETONE)
-//   void sidetone_adj(int hz) {
-
-//     if ((configuration.hz_sidetone + hz) > sidetone_hz_limit_low && (configuration.hz_sidetone + hz) < sidetone_hz_limit_high) {
-//       configuration.hz_sidetone = configuration.hz_sidetone + hz;
-//       compute_sinetone(configuration.hz_sidetone,configuration.sidetone_volume);
-//       config_dirty = 1;
-//       #if defined(FEATURE_DISPLAY) && defined(OPTION_MORE_DISPLAY_MSGS)
-//         if (LCD_COLUMNS < 9){
-//           lcd_center_print_timed(String(configuration.hz_sidetone) + " Hz", 0, default_display_msg_delay);
-//         } else {
-//           lcd_center_print_timed("Sidetone " + String(configuration.hz_sidetone) + " Hz", 0, default_display_msg_delay);
-//         }
-//       #endif   
-//     }
-//   }
-
-// #else // FEATURE_SINEWAVE_SIDETONE
 
   void sidetone_adj(int hz) {
 
@@ -8397,45 +8433,9 @@ void command_tuning_mode() {
     }
   }
 
-// #endif // FEATURE_SINEWAVE_SIDETONE
-
-//-------------------------------------------------------------------------------------------------------
-
-// #if defined(FEATURE_SINEWAVE_SIDETONE)
-
-// void sidetone_adj_volume(int vo) {                            //dl2dbg
-
-//   if ((vo > 0) && ((configuration.sidetone_volume + vo) > sidetone_volume_high_limit)){
-//     configuration.sidetone_volume = sidetone_volume_high_limit;
-//     config_dirty = 1;
-//   } else {
-//     if ((vo < 0) && ((configuration.sidetone_volume + vo) < sidetone_volume_low_limit)){
-//       configuration.sidetone_volume = sidetone_volume_low_limit;
-//       config_dirty = 1;
-//     } else {
-//       if (((configuration.sidetone_volume + vo) >= sidetone_volume_low_limit) && ((configuration.sidetone_volume + vo) <= sidetone_volume_high_limit)){
-//         configuration.sidetone_volume = configuration.sidetone_volume + vo;
-//         config_dirty = 1;
-//       }
-//     }
-//   }
-//   if (config_dirty) {
-//     compute_sinetone(configuration.hz_sidetone,configuration.sidetone_volume);
-//     #if defined(FEATURE_DISPLAY) && defined(OPTION_MORE_DISPLAY_MSGS)
-//       if (LCD_COLUMNS < 9) {
-//         lcd_center_print_timed(String(map(configuration.sidetone_volume,sidetone_volume_low_limit,sidetone_volume_high_limit,0,100)) + "%", 0, default_display_msg_delay);
-//       } else {
-//         lcd_center_print_timed("Sidetone " + String(map(configuration.sidetone_volume,sidetone_volume_low_limit,sidetone_volume_high_limit,0,100)) + "%", 0, default_display_msg_delay);
-//       }
-//     #endif   
-//   }
-// }
-
-// #endif //FEATURE_SINEWAVE_SIDETONE
-
 //-------------------------------------------------------------------------------------------------------
 	
-#if defined(FEATURE_COMMAND_BUTTONS) && !defined(OPTION_SIDETONE_DIGITAL_OUTPUT_NO_SQUARE_WAVE)
+#if defined(FEATURE_COMMAND_MODE) && !defined(OPTION_SIDETONE_DIGITAL_OUTPUT_NO_SQUARE_WAVE)
 void command_sidetone_freq_adj() {
 
   byte looping = 1;
@@ -8504,71 +8504,10 @@ void command_sidetone_freq_adj() {
   while (paddle_pin_read(paddle_left) == LOW || paddle_pin_read(paddle_right) == LOW || analogbuttonread(0) ) {}  // wait for all lines to go high
   noTone(sidetone_line);
 }
-#endif                                                        //FEATURE_COMMAND_BUTTONS
+#endif                                                        //FEATURE_COMMAND_MODE
 
 //-------------------------------------------------------------------------------------------------------
-
-// #if defined(FEATURE_COMMAND_BUTTONS) && !defined(OPTION_SIDETONE_DIGITAL_OUTPUT_NO_SQUARE_WAVE) && defined(FEATURE_SINEWAVE_SIDETONE)
-// void command_sidetone_volume_adj() {
-
-//   byte looping = 1;
-
-//   #ifdef FEATURE_DISPLAY
-//     if (LCD_COLUMNS < 9){
-//       lcd_center_print_timed(String(map(configuration.sidetone_volume,sidetone_volume_low_limit,sidetone_volume_high_limit,0,100)) + "%", 0, default_display_msg_delay);
-//     } else {
-//       lcd_center_print_timed("Volume " + String(map(configuration.sidetone_volume,sidetone_volume_low_limit,sidetone_volume_high_limit,0,100)) + "%", 0, default_display_msg_delay);  
-//     } 
-//   #endif
-
-//   tone(sidetone_line, configuration.hz_sidetone);
-//   while (looping) {
-//     //tone(sidetone_line, configuration.hz_sidetone);
-//     if (paddle_pin_read(paddle_left) == LOW) {
-//       #ifdef FEATURE_DISPLAY
-//         sidetone_adj_volume(5);   
-//         if (LCD_COLUMNS < 9){
-//           lcd_center_print_timed(String(map(configuration.sidetone_volume,sidetone_volume_low_limit,sidetone_volume_high_limit,0,100)) + "%", 0, default_display_msg_delay);
-//         } else {   
-//           lcd_center_print_timed("Volume " + String(configuration.sidetone_volume) + "%", 0, default_display_msg_delay);  
-//         }      
-//       #else
-//         sidetone_adj_volume(1);
-//       #endif
-//       tone(sidetone_line, configuration.hz_sidetone);
-//       delay(10);
-//     }
-//     if (paddle_pin_read(paddle_right) == LOW) {
-//       #ifdef FEATURE_DISPLAY
-//         sidetone_adj_volume(-5);
-//         if (LCD_COLUMNS < 9){
-//           lcd_center_print_timed(String(map(configuration.sidetone_volume,sidetone_volume_low_limit,sidetone_volume_high_limit,0,100)) + "%", 0, default_display_msg_delay);
-//         } else {   
-//           lcd_center_print_timed("Volume " + String(map(configuration.sidetone_volume,sidetone_volume_low_limit,sidetone_volume_high_limit,0,100)) + "%", 0, default_display_msg_delay);  
-//         }        
-//       #else
-//         sidetone_adj_volume(-1);
-//       #endif
-//       tone(sidetone_line, configuration.hz_sidetone);
-//       delay(10);
-//     }
-//     while ((paddle_pin_read(paddle_left) == LOW && paddle_pin_read(paddle_right) == LOW) || (analogbuttonread(0))) { // if paddles are squeezed or button0 pressed - exit
-//       looping = 0;
-//     }
-
-//     #ifdef OPTION_WATCHDOG_TIMER
-//       wdt_reset();
-//     #endif  //OPTION_WATCHDOG_TIMER
-
-//   }
-//   while (paddle_pin_read(paddle_left) == LOW || paddle_pin_read(paddle_right) == LOW || analogbuttonread(0) ) {}  // wait for all lines to go high
-//   noTone(sidetone_line);
-
-// }
-// #endif // defined(FEATURE_COMMAND_BUTTONS) && !defined(OPTION_SIDETONE_DIGITAL_OUTPUT_NO_SQUARE_WAVE) && defined(FEATURE_SINEWAVE_SIDETONE)
-
-//-------------------------------------------------------------------------------------------------------
-#ifdef FEATURE_COMMAND_BUTTONS
+#ifdef FEATURE_COMMAND_MODE
 void command_speed_mode(byte mode) {
 
   byte looping = 1;
@@ -8658,7 +8597,7 @@ void command_speed_mode(byte mode) {
   #endif
 
 }
-#endif //FEATURE_COMMAND_BUTTONS
+#endif //FEATURE_COMMAND_MODE
 	
 //------------------------------------------------------------------
 	
@@ -8716,7 +8655,7 @@ void switch_to_tx(byte tx)
 
 //------------------------------------------------------------------
 
-#if defined(FEATURE_MEMORIES) && defined(FEATURE_COMMAND_BUTTONS)
+#if defined(FEATURE_MEMORIES) && defined(FEATURE_BUTTONS)
 void check_the_memory_buttons()
 {
 
@@ -8732,7 +8671,7 @@ void check_the_memory_buttons()
 //------------------------------------------------------------------
 
 void initialize_analog_button_array() {
-#ifdef FEATURE_COMMAND_BUTTONS  
+#ifdef FEATURE_BUTTONS  
   
   #ifdef DEBUG_BUTTONS
       debug_serial_port->print("initialize_analog_button_array: ");
@@ -8761,11 +8700,11 @@ void initialize_analog_button_array() {
 
       
   #endif //FEATURE_DL2SBA_BANKSWITCH
-#endif //FEATURE_COMMAND_BUTTONS
+#endif //FEATURE_BUTTONS
 }
 
 //------------------------------------------------------------------
-#ifdef FEATURE_COMMAND_BUTTONS
+#ifdef FEATURE_BUTTONS
 byte analogbuttonread(byte button_number) {
  
     if (button_array.Pressed(button_number)) {
@@ -8777,8 +8716,9 @@ byte analogbuttonread(byte button_number) {
 
 //------------------------------------------------------------------
 
-#ifdef FEATURE_COMMAND_BUTTONS
-void check_command_buttons() {
+#ifdef FEATURE_BUTTONS
+void check_buttons() {
+
 
   #ifdef DEBUG_LOOP
     debug_serial_port->println(F("loop: entering check_buttons"));
@@ -8788,86 +8728,87 @@ void check_command_buttons() {
   int analogbuttontemp = button_array.Pressed();
   long button_depress_time;
   byte paddle_was_hit = 0;
-  //byte store_key_tx = key_tx; //Commented this out as not needed with new code (WD9DMP)
   byte previous_sidetone_mode = 0;
-  if (analogbuttontemp <0 ) {
-    // no button pressed.
+
+  if (analogbuttontemp < 0 ) { // no button pressed.
     return;
   }
+
   #ifdef FEATURE_MEMORIES
     repeat_memory = 255;
   #endif
+
   button_depress_time = button_array.last_pressed_ms;
+
   while (button_array.Held(analogbuttontemp, button_depress_time + 1000)) {
     if ((paddle_pin_read(paddle_left) == LOW) || (paddle_pin_read(paddle_right) == LOW)) {
       button_depress_time = 1001;  // if button 0 is held and a paddle gets hit, assume we have a hold and shortcut out
     }
   }
-  if ((millis() - button_depress_time) < 500) {
-    if (analogbuttontemp == 0) {
-      command_mode_disable_tx = !key_tx; //Added to sync the Command Mode entry state to actual key_tx state in case changed by CLI or keyboard (WD9DMP)
-      key_tx = 0;
-      command_mode();
-      if (command_mode_disable_tx) {
-        //key_tx = !store_key_tx; //Inverting pre-command mode state seems to cause Command Mode sync issues (WD9DMP)
-        key_tx = 0; //Added this line to explicitly disable key_tx if command_mode_disable_tx is set after exiting Command Mode (WD9DMP)
-      } else {
-        key_tx = 1;
+  if ((millis() - button_depress_time) < 500) {  // regular button press
+    #ifdef FEATURE_COMMAND_MODE
+      if (analogbuttontemp == 0) {
+        
+        command_mode_disable_tx = !key_tx; //Added to sync the Command Mode entry state to actual key_tx state in case changed by CLI or keyboard (WD9DMP)
+        key_tx = 0;
+        command_mode();
+        if (command_mode_disable_tx) {
+          //key_tx = !store_key_tx; //Inverting pre-command mode state seems to cause Command Mode sync issues (WD9DMP)
+          key_tx = 0; //Added this line to explicitly disable key_tx if command_mode_disable_tx is set after exiting Command Mode (WD9DMP)
+        } else {
+          key_tx = 1;
+        }
+        
       }
-    }
+    #endif //FEATURE_COMMAND_MODE
     #ifdef FEATURE_MEMORIES
-    if ((analogbuttontemp > 0) && (analogbuttontemp < (number_of_memories + 1)) && ((millis() - button_last_add_to_send_buffer_time) > 400)) {
-      
-      #ifdef FEATURE_WINKEY_EMULATION
-      #ifndef OPTION_WINKEY_2_SUPPORT
-      add_to_send_buffer(SERIAL_SEND_BUFFER_MEMORY_NUMBER);
-      add_to_send_buffer(analogbuttontemp - 1);
-      #else //OPTION_WINKEY_2_SUPPORT
-      if ((winkey_host_open) && (wk2_mode == 2)) {   // if winkey is open and in wk2 mode, tell it about the button press
-        byte winkey_byte_to_send = 0xc8;
-        switch(analogbuttontemp) {
-          case 1: winkey_byte_to_send = winkey_byte_to_send | 1; break;
-          case 2: winkey_byte_to_send = winkey_byte_to_send | 2; break;
-          case 3: winkey_byte_to_send = winkey_byte_to_send | 4; break;
-          case 4: winkey_byte_to_send = winkey_byte_to_send | 16; break;            
-        } 
-        winkey_port_write(winkey_byte_to_send,0);
-        winkey_port_write(0xc8,0); // tell it that the button is unpressed
-      } else {  // otherwise, have the buttons act as normal
-        add_to_send_buffer(SERIAL_SEND_BUFFER_MEMORY_NUMBER);
-        add_to_send_buffer(analogbuttontemp - 1);
-      }  
-      #endif //OPTION_WINKEY_2_SUPPORT
-      #else //FEATURE_WINKEY_EMULATION
-      add_to_send_buffer(SERIAL_SEND_BUFFER_MEMORY_NUMBER);
-      add_to_send_buffer(analogbuttontemp - 1);
-      #endif //FEATURE_WINKEY_EMULATION
+      if ((analogbuttontemp > 0) && (analogbuttontemp < (number_of_memories + 1)) && ((millis() - button_last_add_to_send_buffer_time) > 400)) {
+        
+        #ifdef FEATURE_WINKEY_EMULATION
+          #ifndef OPTION_WINKEY_2_SUPPORT
+            add_to_send_buffer(SERIAL_SEND_BUFFER_MEMORY_NUMBER);
+            add_to_send_buffer(analogbuttontemp - 1);
+          #else //OPTION_WINKEY_2_SUPPORT
+            if ((winkey_host_open) && (wk2_mode == 2)) {   // if winkey is open and in wk2 mode, tell it about the button press
+              byte winkey_byte_to_send = 0xc8;
+              switch(analogbuttontemp) {
+                case 1: winkey_byte_to_send = winkey_byte_to_send | 1; break;
+                case 2: winkey_byte_to_send = winkey_byte_to_send | 2; break;
+                case 3: winkey_byte_to_send = winkey_byte_to_send | 4; break;
+                case 4: winkey_byte_to_send = winkey_byte_to_send | 16; break;            
+              } 
+              winkey_port_write(winkey_byte_to_send,0);
+              winkey_port_write(0xc8,0); // tell it that the button is unpressed
+            } else {  // otherwise, have the buttons act as normal
+              add_to_send_buffer(SERIAL_SEND_BUFFER_MEMORY_NUMBER);
+              add_to_send_buffer(analogbuttontemp - 1);
+            }  
+          #endif //OPTION_WINKEY_2_SUPPORT
+        #else //FEATURE_WINKEY_EMULATION
+          add_to_send_buffer(SERIAL_SEND_BUFFER_MEMORY_NUMBER);
+          add_to_send_buffer(analogbuttontemp - 1);
+        #endif //FEATURE_WINKEY_EMULATION
 
-      button_last_add_to_send_buffer_time = millis();
-      #ifdef DEBUG_BUTTONS
-      debug_serial_port->print(F("\ncheck_buttons: add_to_send_buffer: "));
-      debug_serial_port->println(analogbuttontemp - 1);
-      #endif //DEBUG_BUTTONS
-    }
-    #endif
-  } else {
-//      if ((millis() - button_depress_time) < 1000) {
-//        if ((analogbuttontemp > 0) && (analogbuttontemp < 7)) {
-//          key_tx = 0;
-//          switch_to_tx(analogbuttontemp);
-//          key_tx = 1;
-//        }
-//      } else {  // we got a button hold
+        button_last_add_to_send_buffer_time = millis();
+        #ifdef DEBUG_BUTTONS
+        debug_serial_port->print(F("\ncheck_buttons: add_to_send_buffer: "));
+        debug_serial_port->println(analogbuttontemp - 1);
+        #endif //DEBUG_BUTTONS
+      }
+    #endif //ifdef FEATURE_MEMORIES
+
+  } else { //if ((millis() - button_depress_time) < 500)   -- Button hold down
+
       if (analogbuttontemp == 0) {
         key_tx = 0;
         // do stuff if this is a command button hold down
         while (button_array.Held(analogbuttontemp)) {
           if (paddle_pin_read(paddle_left) == LOW) { 
- 	    #ifdef OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
+ 	          #ifdef OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
               speed_change(-1);                                           // left paddle decrease speed
-	    #else
-	      speed_change(1);                                            // left paddle increase speed
-	    #endif                                                        // OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
+	          #else
+	            speed_change(1);                                            // left paddle increase speed
+	          #endif                                                        // OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
             previous_sidetone_mode = configuration.sidetone_mode;
             configuration.sidetone_mode = SIDETONE_ON; 
             sending_mode = MANUAL_SENDING;
@@ -8877,11 +8818,11 @@ void check_command_buttons() {
             dit_buffer = 0;
             
             #ifdef DEBUG_BUTTONS
-	      #ifdef OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
-		debug_serial_port->println(F("\ncheck_buttons: speed_change(-1)"));
- 	      #else
-		debug_serial_port->println(F("\ncheck_buttons: speed_change(1)"));
-	      #endif                                                 // OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION                                                      
+	            #ifdef OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
+		            debug_serial_port->println(F("\ncheck_buttons: speed_change(-1)"));
+ 	            #else
+		            debug_serial_port->println(F("\ncheck_buttons: speed_change(1)"));
+	            #endif                                                 // OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION                                                      
             #endif                                                   // DEBUG_BUTTONS            
 
             #if defined(FEATURE_WINKEY_EMULATION) && defined(FEATURE_POTENTIOMETER)
@@ -8893,23 +8834,22 @@ void check_command_buttons() {
 
           }
           if (paddle_pin_read(paddle_right) == LOW) {
- 	    #ifdef OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
+ 	          #ifdef OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
               speed_change(1);                                           // right paddle increase speed
-	    #else
-	      speed_change(-1);                                          // right paddle decrease speed
-	    #endif                                                       
+	          #else
+	            speed_change(-1);                                          // right paddle decrease speed
+	          #endif                                                       
             previous_sidetone_mode = configuration.sidetone_mode;
             configuration.sidetone_mode = SIDETONE_ON; 
             sending_mode = MANUAL_SENDING;
             send_dah();
             configuration.sidetone_mode = previous_sidetone_mode;              
-            //speed_button_cmd_executed = 1;
             dah_buffer = 0;
 
             #ifdef DEBUG_BUTTONS
-	      #ifdef OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
+	            #ifdef OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
                 debug_serial_port->println(F("\ncheck_buttons: speed_change(1)"));
-	      #else
+	            #else
                 debug_serial_port->println(F("\ncheck_buttons: speed_change(-1)"));
               #endif                                // OPTION_SWAP_PADDLE_PARAMETER_CHANGE_DIRECTION
             #endif                                  // DEBUG_BUTTONS            
@@ -8920,7 +8860,7 @@ void check_command_buttons() {
                 winkey_last_unbuffered_speed_wpm = configuration.wpm;
               }
             #endif
-          }
+          } //if (paddle_pin_read(paddle_right) == LOW) {
         }
         key_tx = 1;
       }  // (analogbuttontemp == 0)
@@ -8937,7 +8877,8 @@ void check_command_buttons() {
             #endif
             paddle_was_hit = 1;
           }
-        }
+        }  //while (button_array.Held(analogbuttontemp)) {
+
         if (!paddle_was_hit) {  // if no paddle was hit, this was a button hold to change transmitters
             key_tx = 0;
             previous_sidetone_mode = configuration.sidetone_mode;
@@ -8946,16 +8887,17 @@ void check_command_buttons() {
             key_tx = 1;
             configuration.sidetone_mode = previous_sidetone_mode;
         }
-      }
+      } //if ((analogbuttontemp > 0) && (analogbuttontemp < analog_buttons_number_of_buttons)) {
     //}                                  // button hold
   }
   last_button_action = millis();
+  
   #ifdef FEATURE_SLEEP
     last_activity_time = millis(); 
   #endif //FEATURE_SLEEP
   
 }
-#endif                                    // FEATURE_COMMAND_BUTTONS
+#endif                                    // FEATURE_BUTTONS
 
 //-------------------------------------------------------------------------------------------------------
 
@@ -9076,9 +9018,9 @@ void beep()
     // #endif
   #else
     if (sidetone_line) {
-      digitalWrite(sidetone_line, HIGH);
+      digitalWrite(sidetone_line, sidetone_line_active_state);
       delay(200);
-      digitalWrite(sidetone_line, LOW);
+      digitalWrite(sidetone_line, sidetone_line_inactive_state);
     }
   #endif
 }
@@ -9093,9 +9035,9 @@ void boop()
     noTone(sidetone_line);
   #else
     if (sidetone_line) {
-      digitalWrite(sidetone_line, HIGH);
+      digitalWrite(sidetone_line, sidetone_line_active_state);
       delay(100);
-      digitalWrite(sidetone_line, LOW);
+      digitalWrite(sidetone_line, sidetone_line_inactive_state);
     }
   #endif    
 }
@@ -9112,9 +9054,9 @@ void beep_boop()
     noTone(sidetone_line);
   #else
     if (sidetone_line) {
-      digitalWrite(sidetone_line, HIGH);
+      digitalWrite(sidetone_line, sidetone_line_active_state);
       delay(200);
-      digitalWrite(sidetone_line, LOW);
+      digitalWrite(sidetone_line, sidetone_line_inactive_state);
     }
   #endif     
 }
@@ -9131,9 +9073,9 @@ void boop_beep()
     noTone(sidetone_line);
   #else
     if (sidetone_line) {
-      digitalWrite(sidetone_line, HIGH);
+      digitalWrite(sidetone_line, sidetone_line_active_state);
       delay(200);
-      digitalWrite(sidetone_line, LOW);
+      digitalWrite(sidetone_line, sidetone_line_inactive_state);
     }
   #endif         
 }
@@ -9302,8 +9244,7 @@ void send_char(byte cw_char, byte omit_letterspace)
       case ')': send_the_dits_and_dahs("-.--.-");  break;
       case '&': send_the_dits_and_dahs(".-...");   break;
       //case '&': send_dit(); loop_element_lengths(3); send_dits(3); break;
-      case ':': send_the_dits_and_dahs("---...");  break;
-      case ';': send_the_dits_and_dahs("-.-.-.");  break;
+
       case '+': send_the_dits_and_dahs(".-.-.");   break;
       case '-': send_the_dits_and_dahs("-....-");  break;
       case '_': send_the_dits_and_dahs("..--.-");  break;
@@ -9312,7 +9253,23 @@ void send_char(byte cw_char, byte omit_letterspace)
       case '@': send_the_dits_and_dahs(".--.-.");  break;
       case '<': send_the_dits_and_dahs(".-.-.");   break; // AR
       case '>': send_the_dits_and_dahs("...-.-");  break; // SK
-      case '[': send_the_dits_and_dahs(".-...");   break; // AS (K1EL Winkeyer compability)
+     
+
+
+
+    
+      #if defined(OPTION_WINKEY_PROSIGN_COMPATIBILITY)
+        case 0x5C: send_the_dits_and_dahs("-..-.");  break;   // Backslash 
+        case '[': send_the_dits_and_dahs(".-...");  break;
+        case ':': send_the_dits_and_dahs("-.--.");  break;
+        case ';': send_the_dits_and_dahs(".-.-");   break;
+        case ']': send_the_dits_and_dahs("-.--.");  break;
+      #else
+        case ':': send_the_dits_and_dahs("---...");  break;
+        case ';': send_the_dits_and_dahs("-.-.-.");  break;
+
+      #endif
+
 
       case ' ': 
         loop_element_lengths((configuration.length_wordspace-length_letterspace-2),0,configuration.wpm); 
@@ -9719,6 +9676,9 @@ void service_send_buffer(byte no_print)
             #ifdef FEATURE_WINKEY_EMULATION
               if ((winkey_host_open) && (winkey_speed_state == WINKEY_UNBUFFERED_SPEED)){
                 winkey_speed_state = WINKEY_BUFFERED_SPEED;
+                #if defined(DEBUG_SERVICE_SEND_BUFFER)
+                  debug_serial_port->println("service_send_buffer: winkey_speed_state = WINKEY_BUFFERED_SPEED");
+                #endif
                 winkey_last_unbuffered_speed_wpm = configuration.wpm;
               }
             #endif
@@ -10860,68 +10820,13 @@ void winkey_eeprom_download() {
   
   byte zero = 0;
   unsigned int x = 0;
-  //unsigned int y = 0;
   unsigned int bytes_sent = 0;
-//  byte byte_read_from_eeprom = 0;
-//  byte read_memory_number = 0;
-//  byte memory_byte_counter = 0;
-//  byte memory_sizes[5];
-//  byte total_memory_sizes = 0;
-//  byte previous_memories = 0;
   
-  winkey_port_write(0xa5,1); // 01 magic byte
+  winkey_port_write(0xA5,1); // 01 magic byte
   winkey_admin_get_values_command(); // 02-16
   
   winkey_port_write(byte(configuration.wpm),1); // 17 cmdwpm
   bytes_sent = 17;
-  
-  // This is a real PITA.  The K1EL Winkey 2 doesn't store memories in ASCII, so a lookup table is required
-  
-  // produce memory pointers
-//  for (read_memory_number = 0; read_memory_number < 6; read_memory_number++) {
-//    memory_byte_counter = 0;
-//    for (y = (memory_start(read_memory_number)); (y < (memory_end(read_memory_number)+1)); y++) {
-//      byte_read_from_eeprom = EEPROM.read(y);
-//      if (byte_read_from_eeprom == 255) { // have we found the end of the memory?
-//        y = (memory_end(read_memory_number)+1); // exit the loop
-//      } else { 
-//        memory_byte_counter++;  // count another byte
-//      }
-//    }
-//    memory_sizes[read_memory_number] = memory_byte_counter;
-//    total_memory_sizes = total_memory_sizes + memory_byte_counter;
-//  }
-//  
-//  primary_serial_port->write((total_memory_sizes+24));  // freeptr
-//  for (x = 0; x < 6; x++) { // send memory pointers
-//    if (memory_sizes[x] > 0) {
-//      primary_serial_port->write((memory_sizes[x]+23+previous_memories));
-//      previous_memories = previous_memories + memory_sizes[x];
-//    } else {
-//      primary_serial_port->write(0x10);
-//    }
-//  }
-//  
-//  bytes_sent = 24;
-  
-
-  
-  // dump memories
-//  for (read_memory_number = 0; read_memory_number < 6; read_memory_number++) {
-//    for (y = (memory_start(read_memory_number)); (y < (memory_end(read_memory_number)+1)); y++) {
-//      byte_read_from_eeprom = EEPROM.read(y);
-//      if (byte_read_from_eeprom == 255) {
-//        y = (memory_end(read_memory_number)+1);
-//      } else {
-//        if ((EEPROM.read(Y+1) == 255)) {
-//          primary_serial_port->write(byte_read_from_eeprom|128);  // if this is the last byte, set bit 8
-//        } else {
-//          primary_serial_port->write(byte_read_from_eeprom);
-//        }
-//        bytes_sent++;
-//      }
-//    }
-//  }
   
   //pad the rest with zeros    
   for (x = 0;x < (256-bytes_sent); x++) {
@@ -11049,7 +10954,7 @@ void service_winkey(byte action) {
         winkey_buffer_counter = 0;
         winkey_buffer_pointer = 0;  
       }
-    } else {
+    } else { //if (winkey_interrupted)
       //if ((winkey_host_open) && (winkey_sending) && (send_buffer_bytes < 1) && ((millis() - winkey_last_activity) > winkey_c0_wait_time)) {
       if ((primary_serial_port->available() == 0) && (winkey_host_open) && (winkey_sending) && (send_buffer_bytes < 1) && ((millis() - winkey_last_activity) > winkey_c0_wait_time)) {
         #ifdef OPTION_WINKEY_SEND_WORDSPACE_AT_END_OF_BUFFER
@@ -11064,17 +10969,20 @@ void service_winkey(byte action) {
         winkey_buffer_counter = 0;
         winkey_buffer_pointer = 0;
       }
-    }
+    }  // if (winkey_interrupted)
+    
     // failsafe check - if we've been in some command status for awhile waiting for something, clear things out
     if ((winkey_status != WINKEY_NO_COMMAND_IN_PROGRESS) && ((millis() - winkey_last_activity) > winkey_command_timeout_ms)) {
       #ifdef DEBUG_WINKEY
-        debug_serial_port->println("\r\nservice_winkey:cmd tout!->WINKEY_NO_COMMAND_IN_PROGRESS");
+        debug_serial_port->print("\r\nservice_winkey:cmd tout!->WINKEY_NO_COMMAND_IN_PROGRESS cmd was:");
+        debug_serial_port->println(winkey_status);
       #endif //DEBUG_WINKEY      
       winkey_status = WINKEY_NO_COMMAND_IN_PROGRESS;
       winkey_buffer_counter = 0;
       winkey_buffer_pointer = 0;
       winkey_port_write(0xc0|winkey_sending|winkey_xoff,0);    //send a status byte back for giggles
     }  
+
     if ((winkey_host_open) && (winkey_paddle_echo_buffer) && (winkey_paddle_echo_activated) && (millis() > winkey_paddle_echo_buffer_decode_time)) {
       #ifdef DEBUG_WINKEY
         debug_serial_port->println("\r\nservice_winkey:sending paddle echo char");
@@ -11084,6 +10992,7 @@ void service_winkey(byte action) {
       winkey_paddle_echo_buffer_decode_time = millis() + (float(600/configuration.wpm)*length_letterspace);
       winkey_paddle_echo_space_sent = 0;
     }
+
     if ((winkey_host_open) && (winkey_paddle_echo_buffer == 0) && (winkey_paddle_echo_activated) && (millis() > (winkey_paddle_echo_buffer_decode_time + (float(1200/configuration.wpm)*(configuration.length_wordspace-length_letterspace)))) && (!winkey_paddle_echo_space_sent)) {
       #ifdef DEBUG_WINKEY
         debug_serial_port->println("\r\nservice_winkey:sending paddle echo space");
@@ -11093,7 +11002,7 @@ void service_winkey(byte action) {
     }
   }  // if (action == WINKEY_HOUSEKEEPING)
 
-  if (action == SERVICE_SERIAL_BYTE) {
+  if (action == SERVICE_SERIAL_BYTE){
     #ifdef DEBUG_WINKEY
       debug_serial_port->print("Winkey Port RX: ");
       if ((incoming_serial_byte > 31) && (incoming_serial_byte < 127)){
@@ -11111,8 +11020,8 @@ void service_winkey(byte action) {
     #endif //DEBUG_WINKEY
 
     winkey_last_activity = millis();
-    if (winkey_status == WINKEY_NO_COMMAND_IN_PROGRESS) {
 
+    if (winkey_status == WINKEY_NO_COMMAND_IN_PROGRESS){ 
       #if defined(FEATURE_SO2R_BASE)
         if (incoming_serial_byte >= 128) {
           so2r_command();
@@ -11240,8 +11149,7 @@ void service_winkey(byte action) {
           case 0x07:
             #ifdef FEATURE_POTENTIOMETER
               winkey_port_write(((pot_value_wpm()-pot_wpm_low_value)|128),0);
-            #endif
-            #ifndef FEATURE_POTENTIOMETER
+            #else
               winkey_port_write((byte(configuration.wpm-pot_wpm_low_value)|128),0);
             #endif
             #ifdef DEBUG_WINKEY
@@ -11290,8 +11198,6 @@ void service_winkey(byte action) {
               debug_serial_port->print("service_winkey:0A clearbuff send_buffer_bytes:");
               debug_serial_port->println(send_buffer_bytes);
             #endif //DEBUG_WINKEY 
-
-
             break;
           case 0x0b:
             winkey_status = WINKEY_KEY_COMMAND;
@@ -11434,10 +11340,25 @@ void service_winkey(byte action) {
             #endif //DEBUG_WINKEY            
             break;
           case 0x1e:  // cancel buffered speed command - buffered
-            winkey_status = WINKEY_CANCEL_BUFFERED_SPEED_COMMAND;
+
             #ifdef DEBUG_WINKEY
               debug_serial_port->println("service_winkey:WINKEY_CANCEL_BUFFERED_SPEED_COMMAND");
-            #endif //DEBUG_WINKEY            
+            #endif //DEBUG_WINKEY     
+
+            if (winkey_speed_state == WINKEY_BUFFERED_SPEED){
+              add_to_send_buffer(SERIAL_SEND_BUFFER_WPM_CHANGE);
+              add_to_send_buffer(0);
+              add_to_send_buffer((byte)winkey_last_unbuffered_speed_wpm);
+              winkey_speed_state = WINKEY_UNBUFFERED_SPEED;
+              #ifdef DEBUG_WINKEY
+                debug_serial_port->println("service_winkey:winkey_speed_state = WINKEY_UNBUFFERED_SPEED");
+              #endif //DEBUG_WINKEY 
+            } else {
+              #ifdef DEBUG_WINKEY
+                debug_serial_port->println("service_winkey:WINKEY_CANCEL_BUFFERED_SPEED_COMMAND: no action");
+              #endif //DEBUG_WINKEY         
+            }       
+            winkey_status = WINKEY_NO_COMMAND_IN_PROGRESS;
             break;
           case 0x1f:  // buffered NOP - no need to do anything
             #ifdef DEBUG_WINKEY
@@ -11461,7 +11382,7 @@ void service_winkey(byte action) {
         #endif
         
       }
-    } else {
+    } else { //if (winkey_status == WINKEY_NO_COMMAND_IN_PROGRESS) 
 
       if (winkey_status == WINKEY_UNSUPPORTED_COMMAND) {
         winkey_parmcount--;
@@ -11522,6 +11443,7 @@ void service_winkey(byte action) {
           winkey_status = WINKEY_NO_COMMAND_IN_PROGRESS;
         }
       }
+
       if (winkey_status == WINKEY_UNBUFFERED_SPEED_COMMAND) {
         winkey_unbuffered_speed_command(incoming_serial_byte);
         winkey_status = WINKEY_NO_COMMAND_IN_PROGRESS;
@@ -11596,19 +11518,6 @@ void service_winkey(byte action) {
         } else {
           add_to_send_buffer(SERIAL_SEND_BUFFER_PTT_OFF);
         }
-        winkey_status = WINKEY_NO_COMMAND_IN_PROGRESS;
-      }
-
-      if (winkey_status == WINKEY_CANCEL_BUFFERED_SPEED_COMMAND) {
-        if (winkey_speed_state == WINKEY_BUFFERED_SPEED){
-          add_to_send_buffer(SERIAL_SEND_BUFFER_WPM_CHANGE);
-          add_to_send_buffer(0);
-          add_to_send_buffer((byte)winkey_last_unbuffered_speed_wpm);
-          winkey_speed_state = WINKEY_UNBUFFERED_SPEED;
-        }
-        #ifdef DEBUG_WINKEY
-          debug_serial_port->println("service_winkey:CANCEL_BUFFERED_SPEED_COMMAND->NOCMD");
-        #endif //DEBUG_WINKEY         
         winkey_status = WINKEY_NO_COMMAND_IN_PROGRESS;
       }
 
@@ -11712,16 +11621,16 @@ void service_winkey(byte action) {
       }
 
       #ifdef OPTION_WINKEY_2_SUPPORT
-      if (winkey_status == WINKEY_SEND_MSG) {
-        if ((incoming_serial_byte > 0) && (incoming_serial_byte < 7)) {
-          add_to_send_buffer(SERIAL_SEND_BUFFER_MEMORY_NUMBER);
-          add_to_send_buffer(incoming_serial_byte - 1);
-          #ifdef FEATURE_MEMORIES
-            repeat_memory = 255;
-          #endif
+        if (winkey_status == WINKEY_SEND_MSG) {
+          if ((incoming_serial_byte > 0) && (incoming_serial_byte < 7)) {
+            add_to_send_buffer(SERIAL_SEND_BUFFER_MEMORY_NUMBER);
+            add_to_send_buffer(incoming_serial_byte - 1);
+            #ifdef FEATURE_MEMORIES
+              repeat_memory = 255;
+            #endif
+          }
+          winkey_status = WINKEY_NO_COMMAND_IN_PROGRESS;  
         }
-        winkey_status = WINKEY_NO_COMMAND_IN_PROGRESS;  
-      }
       #endif //OPTION_WINKEY_2_SUPPORT
 
       if (winkey_status == WINKEY_ADMIN_COMMAND) {
@@ -12842,7 +12751,7 @@ void cli_extended_commands(PRIMARY_SERIAL_CLS * port_to_use)
       if ((incoming_serial_byte > 31) && (incoming_serial_byte < 127)) {
         userinput.concat((char)incoming_serial_byte);
       }
-      if (incoming_serial_byte == 13) {   // carriage return - get out
+      if (incoming_serial_byte == 13 || incoming_serial_byte == 10) {   // carriage return - get out
         looping = 0;
       }
     }
@@ -13860,7 +13769,7 @@ void serial_tune_command (PRIMARY_SERIAL_CLS * port_to_use) {
   sending_mode = MANUAL_SENDING;
   tx_and_sidetone_key(1);
   port_to_use->println(F("\r\nKeying tx - press a key to unkey"));
-  #ifdef FEATURE_COMMAND_BUTTONS
+  #ifdef FEATURE_BUTTONS
     while ((port_to_use->available() == 0) && (!analogbuttonread(0))) {}  // keystroke or button0 hit gets us out of here
   #else
     while (port_to_use->available() == 0) {}
@@ -14512,7 +14421,7 @@ void receive_transmit_echo_practice(PRIMARY_SERIAL_CLS * port_to_use, byte pract
           if (correct_answer_led) digitalWrite(correct_answer_led, LOW);                 // clear the LEDs as we exit
           if (wrong_answer_led)   digitalWrite(wrong_answer_led,   LOW);
         }
-        #ifdef FEATURE_COMMAND_BUTTONS
+        #ifdef FEATURE_BUTTONS
           while (analogbuttonread(0)) {                                                 // can exit by pressing the Command Mode button
             user_send_loop = 0;
             loop1 = 0;
@@ -14520,7 +14429,7 @@ void receive_transmit_echo_practice(PRIMARY_SERIAL_CLS * port_to_use, byte pract
             if (correct_answer_led) digitalWrite(correct_answer_led, LOW);              // clear the LEDs as we exit
             if (wrong_answer_led)   digitalWrite(wrong_answer_led,   LOW);
           }
-        #endif                                                                          // FEATURE_COMMAND_BUTTONS
+        #endif                                                                          // FEATURE_BUTTONS
 
       }                                                                                 //while (user_send_loop)
 
@@ -14853,7 +14762,7 @@ void random_practice(PRIMARY_SERIAL_CLS * port_to_use,byte random_mode,byte grou
       loop1 = 0;
     }
 
-    #ifdef FEATURE_COMMAND_BUTTONS
+    #ifdef FEATURE_BUTTONS
       while ((paddle_pin_read(paddle_left) == LOW) || (paddle_pin_read(paddle_right) == LOW) || (analogbuttonread(0))) {
         loop1 = 0;
       }
@@ -14861,7 +14770,7 @@ void random_practice(PRIMARY_SERIAL_CLS * port_to_use,byte random_mode,byte grou
       while ((paddle_pin_read(paddle_left) == LOW) || (paddle_pin_read(paddle_right) == LOW)) {
         loop1 = 0;
       }    
-    #endif //FEATURE_COMMAND_BUTTONS
+    #endif //FEATURE_BUTTONS
 
   } //loop1
   
@@ -15269,17 +15178,17 @@ void serial_practice_interactive(PRIMARY_SERIAL_CLS * port_to_use,byte practice_
       }
   
       delay(100);
-      #ifdef FEATURE_COMMAND_BUTTONS
-      while ((paddle_pin_read(paddle_left) == LOW) || (paddle_pin_read(paddle_right) == LOW) || (analogbuttonread(0))) {
-        loop1 = 0;
-        loop2 = 0;
-      }
+      #ifdef FEATURE_BUTTONS
+        while ((paddle_pin_read(paddle_left) == LOW) || (paddle_pin_read(paddle_right) == LOW) || (analogbuttonread(0))) {
+          loop1 = 0;
+          loop2 = 0;
+        }
       #else 
-      while ((paddle_pin_read(paddle_left) == LOW) || (paddle_pin_read(paddle_right) == LOW)) {
-        loop1 = 0;
-        loop2 = 0;
-      }    
-      #endif //FEATURE_COMMAND_BUTTONS
+        while ((paddle_pin_read(paddle_left) == LOW) || (paddle_pin_read(paddle_right) == LOW)) {
+          loop1 = 0;
+          loop2 = 0;
+        }    
+      #endif //FEATURE_BUTTONS
       delay(10);
     } //loop2
   } //loop1
@@ -15403,7 +15312,7 @@ void serial_practice_non_interactive(PRIMARY_SERIAL_CLS * port_to_use,byte pract
         x = 99;
       }
 
-      #ifdef FEATURE_COMMAND_BUTTONS
+      #ifdef FEATURE_BUTTONS
         while ((paddle_pin_read(paddle_left) == LOW) || (paddle_pin_read(paddle_right) == LOW) || (analogbuttonread(0))) {
           loop1 = 0;
           loop2 = 0;
@@ -15415,7 +15324,7 @@ void serial_practice_non_interactive(PRIMARY_SERIAL_CLS * port_to_use,byte pract
           loop2 = 0;
           x = 99;
         }    
-      #endif //FEATURE_COMMAND_BUTTONS
+      #endif //FEATURE_BUTTONS
 
     } //loop2
 
@@ -16089,7 +15998,7 @@ void serial_program_memory(PRIMARY_SERIAL_CLS * port_to_use)
 
 //---------------------------------------------------------------------
 
-#if defined(FEATURE_MEMORIES) && defined(FEATURE_COMMAND_BUTTONS)
+#if defined(FEATURE_MEMORIES) && defined(FEATURE_COMMAND_MODE)
 void command_program_memory()
 {
   int cw_char;
@@ -16129,7 +16038,7 @@ void command_program_memory()
     }
   }
 }
-#endif //FEATURE_COMMAND_BUTTONS
+#endif //FEATURE_COMMAND_MODE
 
 //---------------------------------------------------------------------
 
@@ -16141,15 +16050,15 @@ byte memory_nonblocking_delay(unsigned long delaytime)
 
   while ((millis() - starttime) < delaytime) {
     check_paddles();
-    #ifdef FEATURE_COMMAND_BUTTONS
-    if (((dit_buffer) || (dah_buffer) || (analogbuttonread(0))) && (keyer_machine_mode != BEACON)) {   // exit if the paddle or button0 was hit
+    #ifdef FEATURE_BUTTONS
+      if (((dit_buffer) || (dah_buffer) || (analogbuttonread(0))) && (keyer_machine_mode != BEACON)) {   // exit if the paddle or button0 was hit
     #else
-    if (((dit_buffer) || (dah_buffer)) && (keyer_machine_mode != BEACON)) {   // exit if the paddle or button0 was hit
+      if (((dit_buffer) || (dah_buffer)) && (keyer_machine_mode != BEACON)) {   // exit if the paddle or button0 was hit
     #endif
       dit_buffer = 0;
       dah_buffer = 0;
-      #ifdef FEATURE_COMMAND_BUTTONS
-      while (analogbuttonread(0)) {}
+      #ifdef FEATURE_BUTTONS
+        while (analogbuttonread(0)) {}
       #endif
       return 1;
     }
@@ -16162,7 +16071,7 @@ byte memory_nonblocking_delay(unsigned long delaytime)
 //---------------------------------------------------------------------
 void check_button0()
 {
-  #ifdef FEATURE_COMMAND_BUTTONS
+  #ifdef FEATURE_BUTTONS
     if (analogbuttonread(0)) {button0_buffer = 1;}
   #endif
 }
@@ -16792,7 +16701,7 @@ byte play_memory(byte memory_number) {
               dah_buffer = 0;
               button0_buffer = 0;
               repeat_memory = 255;
-              #ifdef FEATURE_COMMAND_BUTTONS
+              #ifdef FEATURE_BUTTONS
                 while (analogbuttonread(0)) {}
               #endif  
               return 0;
@@ -16803,7 +16712,7 @@ byte play_memory(byte memory_number) {
               dah_buffer = 0;
               button0_buffer = 0;
               repeat_memory = 255;
-              #ifdef FEATURE_COMMAND_BUTTONS
+              #ifdef FEATURE_BUTTONS
                 while (analogbuttonread(0)) {}
               #endif  
               return 0;
@@ -16936,11 +16845,11 @@ void program_memory(int memory_number)
   dit_buffer = 0;
   dah_buffer = 0;
   
-  #if defined(FEATURE_COMMAND_BUTTONS) && !defined(FEATURE_STRAIGHT_KEY)
+  #if defined(FEATURE_BUTTONS) && !defined(FEATURE_STRAIGHT_KEY)
     while ((paddle_pin_read(paddle_left) == HIGH) && (paddle_pin_read(paddle_right) == HIGH) && (!analogbuttonread(0))) { }  // loop until user starts sending or hits the button
   #endif
 
-  #if defined(FEATURE_COMMAND_BUTTONS) && defined(FEATURE_STRAIGHT_KEY)
+  #if defined(FEATURE_BUTTONS) && defined(FEATURE_STRAIGHT_KEY)
     while ((paddle_pin_read(paddle_left) == HIGH) && (paddle_pin_read(paddle_right) == HIGH) && (!analogbuttonread(0)) && (digitalRead(pin_straight_key) == HIGH)) { }  // loop until user starts sending or hits the button
   #endif
 
@@ -17015,7 +16924,7 @@ void program_memory(int memory_number)
          }       
        #endif //FEATURE_MEMORY_MACROS
 
-       #ifdef FEATURE_COMMAND_BUTTONS
+       #ifdef FEATURE_BUTTONS
          while (analogbuttonread(0)) {    // hit the button to get out of command mode if no paddle was hit
            loop1 = 0;
            loop2 = 0;
@@ -17186,7 +17095,7 @@ void initialize_pins() {
   }
   if (sidetone_line) {
     pinMode (sidetone_line, OUTPUT);
-    digitalWrite (sidetone_line, LOW);
+    digitalWrite (sidetone_line, sidetone_line_inactive_state);
   }
   if (tx_key_dit) {
     pinMode (tx_key_dit, OUTPUT);
@@ -17213,12 +17122,12 @@ void initialize_pins() {
     }
   #endif //FEATURE_CW_DECODER
   
-  #if defined(FEATURE_COMMAND_BUTTONS) && defined(command_mode_active_led)
+  #if defined(FEATURE_COMMAND_MODE) && defined(command_mode_active_led)
     if(command_mode_active_led) {
       pinMode (command_mode_active_led, OUTPUT);
       digitalWrite (command_mode_active_led,LOW);
     }
-  #endif //FEATURE_COMMAND_BUTTONS && command_mode_active_led
+  #endif //FEATURE_COMMAND_MODE && command_mode_active_led
   
   
   #ifdef FEATURE_LED_RING
@@ -17435,8 +17344,11 @@ void initialize_debug_startup(){
   #ifdef FEATURE_DL2SBA_BANKSWITCH
   debug_serial_port->println(F("FEATURE_DL2SBA_BANKSWITCH"));
   #endif
-  #ifdef FEATURE_COMMAND_BUTTONS
-  debug_serial_port->println(F("FEATURE_COMMAND_BUTTONS"));
+  #ifdef FEATURE_BUTTONS
+  debug_serial_port->println(F("FEATURE_BUTTONS"));
+  #endif
+  #ifdef FEATURE_COMMAND_MODE
+  debug_serial_port->println(F("FEATURE_COMMAND_MODE"));
   #endif
   #ifdef FEATURE_LCD_4BIT
   debug_serial_port->println(F("FEATURE_LCD_4BIT"));
@@ -17898,7 +17810,7 @@ void initialize_serial_ports(){
   
     #if defined(FEATURE_WINKEY_EMULATION) && defined(FEATURE_COMMAND_LINE_INTERFACE) //--------------------------------------------
     
-      #ifdef FEATURE_COMMAND_BUTTONS
+      #ifdef FEATURE_BUTTONS
         if (analogbuttonread(0)) {
           #ifdef OPTION_PRIMARY_SERIAL_PORT_DEFAULT_WINKEY_EMULATION
             primary_serial_port_mode = SERIAL_CLI;
@@ -17917,7 +17829,7 @@ void initialize_serial_ports(){
           #endif  //ifndef OPTION_PRIMARY_SERIAL_PORT_DEFAULT_WINKEY_EMULATION
         }
         while (analogbuttonread(0)) {}
-      #else //FEATURE_COMMAND_BUTTONS  
+      #else //FEATURE_BUTTONS  
         #ifdef OPTION_PRIMARY_SERIAL_PORT_DEFAULT_WINKEY_EMULATION
           primary_serial_port_mode = SERIAL_WINKEY_EMULATION;
           primary_serial_port_baud_rate = WINKEY_DEFAULT_BAUD;
@@ -17925,7 +17837,7 @@ void initialize_serial_ports(){
           primary_serial_port_mode = SERIAL_CLI;
           primary_serial_port_baud_rate = PRIMARY_SERIAL_PORT_BAUD;
         #endif  //ifndef OPTION_PRIMARY_SERIAL_PORT_DEFAULT_WINKEY_EMULATION
-      #endif //FEATURE_COMMAND_BUTTONS
+      #endif //FEATURE_BUTTONS
     #endif //defined(FEATURE_WINKEY_EMULATION) && defined(FEATURE_COMMAND_LINE_INTERFACE)---------------------------------
 
     #if !defined(FEATURE_WINKEY_EMULATION) && defined(FEATURE_COMMAND_LINE_INTERFACE)
@@ -18054,7 +17966,7 @@ void ps2int_write() {
 void initialize_display(){
 
   #ifdef FEATURE_DISPLAY    
-    #if defined(FEATURE_LCD_SAINSMART_I2C)
+    #if defined(FEATURE_LCD_SAINSMART_I2C) || defined(FEATURE_LCD_I2C_FDEBRABANDER)
       lcd.begin();
       lcd.home();
     #else
@@ -18098,44 +18010,40 @@ void initialize_display(){
       lcd.clear(); // you have to ;o)
     #endif //OPTION_DISPLAY_NON_ENGLISH_EXTENSIONS
 
-    if (LCD_COLUMNS < 9){
-      lcd_center_print_timed("K3NGKeyr",0,4000);
+     if (LCD_COLUMNS < 9) {
+      lcd_center_print_timed("K3NGKeyr", 0, 4000);
     } else {
-      lcd_center_print_timed("K3NG Keyer",0,4000);
+      lcd_center_print_timed("K3NG Keyer", 0, 4000);
       #ifdef OPTION_PERSONALIZED_STARTUP_SCREEN
         if (LCD_ROWS == 2) {
-	        #ifdef OPTION_DO_NOT_SAY_HI                                 // if we wish to display the custom field on the second line, we can't say 'hi'
-	          lcd_center_print_timed(custom_startup_field, 1, 4000);    // display the custom field on the second line of the display, maximum field length is the number of columns
-          #endif                                                      // OPTION_DO_NOT_SAY_HI
-	      } else if (LCD_ROWS > 2) lcd_center_print_timed(custom_startup_field, 2, 4000);      // display the custom field on the third line of the display, maximum field length is the number of columns
-      #endif                                                          // OPTION_PERSONALIZED_STARTUP_SCREEN
-      if (LCD_ROWS > 3) lcd_center_print_timed("V: " + String(CODE_VERSION), 3, 4000);             // display the code version on the fourth line of the display
+          lcd_center_print_timed(custom_startup_field, 1, 4000);    // display the custom field on the second line of the display, maximum field length is the number of columns
+        } else if (LCD_ROWS > 2) {
+	        lcd_center_print_timed("hi", 1, 4000);                    // display 'hi' on the 2nd line anyway
+          lcd_center_print_timed(custom_startup_field, 2, 4000);    // display the custom field on the third line of the display, maximum field length is the number of columns
+	      }
+      #else
+        lcd_center_print_timed("hi", 1, 4000);
+      #endif                                                        // OPTION_PERSONALIZED_STARTUP_SCREEN
+      if (LCD_ROWS > 3) lcd_center_print_timed("V: " + String(CODE_VERSION), 3, 4000);      // display the code version on the fourth line of the display
     }
   #endif //FEATURE_DISPLAY
 
   if (keyer_machine_mode != BEACON) {
     #ifndef OPTION_DO_NOT_SAY_HI
-      // say HI
+      // sound out HI
       // store current setting (compliments of DL2SBA - http://dl2sba.com/ )
-      byte oldKey = key_tx; 
+      byte oldKey = key_tx;
       byte oldSideTone = configuration.sidetone_mode;
       key_tx = 0;
       configuration.sidetone_mode = SIDETONE_ON;     
-      #ifdef FEATURE_DISPLAY
-        lcd_center_print_timed("h",1,4000);
-      #endif
       send_char('H',KEYER_NORMAL);
-      #ifdef FEATURE_DISPLAY
-        lcd_center_print_timed("hi",1,4000);
-      #endif
-      send_char('I',KEYER_NORMAL); 
-      configuration.sidetone_mode = oldSideTone; 
-      key_tx = oldKey;     
+      send_char('I',KEYER_NORMAL);
+      configuration.sidetone_mode = oldSideTone;
+      key_tx = oldKey;
     #endif //OPTION_DO_NOT_SAY_HI
     #ifdef OPTION_BLINK_HI_ON_PTT
       blink_ptt_dits_and_dahs(".... ..");
     #endif
-
   }
 }
 
@@ -19904,21 +19812,23 @@ void web_print_page_about(EthernetClient client){
   web_client_println(client,CODE_VERSION);
   web_client_println(client,"<br>");
 
-  void* HP = malloc(4);
-  if (HP){
-    free (HP);
-  }
-  unsigned long free = (unsigned long)SP - (unsigned long)HP;
+  #if !defined(HARDWARE_GENERIC_STM32F103C)
+    void* HP = malloc(4);
+    if (HP){
+      free (HP);
+    }
+    unsigned long free = (unsigned long)SP - (unsigned long)HP;
 
-  // web_client_print(client,"Heap = 0x");
-  // web_client_println(client,(unsigned long)HP,HEX);
-  // web_client_println(client,"<br />");           
-  // web_client_print(client,"Stack = 0x");
-  // web_client_println(client,(unsigned long)SP,HEX);
-  // web_client_println(client,"<br />");           
-            
-  web_client_print(client,free);
-  web_client_println(client,F(" bytes free<br><br>"));
+    // web_client_print(client,"Heap = 0x");
+    // web_client_println(client,(unsigned long)HP,HEX);
+    // web_client_println(client,"<br />");           
+    // web_client_print(client,"Stack = 0x");
+    // web_client_println(client,(unsigned long)SP,HEX);
+    // web_client_println(client,"<br />");           
+              
+    web_client_print(client,free);
+    web_client_println(client,F(" bytes free<br><br>"));
+  #endif
 
 
   
